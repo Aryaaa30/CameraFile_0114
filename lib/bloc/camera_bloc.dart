@@ -136,4 +136,37 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       ),
     );
   }
+
+  Future<void> _onClearSnackBar(
+    ClearSnackBar event,
+    Emitter<CameraState> emit,
+  ) async {
+    if (state is! CameraReady) return;
+    emit((state as CameraReady).copyWith(snackBarMessage: null));
+  }
+
+  Future<void> _setupController(
+    Emitter<CameraState> emit,
+    int index, {
+    CameraReady? previous,
+  }) async {
+    await previous?.controller.dispose();
+    final controller = CameraController(
+      _cameras[index],
+      ResolutionPreset.max,
+      enableAudio: false,
+    );
+    await controller.initialize();
+    await controller.setFlashMode(previous?.flashMode ?? FlashMode.off);
+
+    emit(
+      CameraReady(
+        controller: controller,
+        selectedIndex: index,
+        flashMode: previous?.flashMode ?? FlashMode.off,
+        imageFile: previous?.imageFile,
+        snackBarMessage: null,
+      ),
+    );
+  }
 }
