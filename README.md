@@ -1,16 +1,9 @@
-# session7_mobile_sensor
-
-A new Flutter project.
-
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![Screenshot (1271)](https://github.com/user-attachments/assets/6843b73c-14a6-48a7-b789-480270ea6d23)
+![Screenshot (1270)](https://github.com/user-attachments/assets/6a92cb80-d297-4238-b5df-2032898e126c)
+![Screenshot (1273)](https://github.com/user-attachments/assets/3d5d94d0-7852-4441-a271-38cce7c967a0)
+![Screenshot (1274)](https://github.com/user-attachments/assets/2b9e2a93-50ad-4c6e-b34c-90d4b88ae6b5)
+![Screenshot (1275)](https://github.com/user-attachments/assets/3a40148c-18a9-4adf-a0d5-30211a976fce)
+![Screenshot (1276)](https://github.com/user-attachments/assets/8553aded-01b4-4703-b08c-1e3edc687f61)
+![Screenshot (1277)](https://github.com/user-attachments/assets/da0f88ea-b72f-4471-b087-26c7a4c831f7)
+![Screenshot (1278)](https://github.com/user-attachments/assets/d12d18d2-d133-43b7-9e11-f542d6dccc43)
+![Screenshot (1280)](https://github.com/user-attachments/assets/e89eda0f-3da1-4e45-bd1c-704f1819fc1f)
