@@ -72,6 +72,21 @@ class _CameraPageState extends State<CameraPage> {
                     },
                     child: CameraPreview(state.controller),
                   ),
+                  Positioned(
+                    top: 50,
+                    right: 20,
+                    child: Column(
+                      children: [
+                        _circleButton(Icons.flip_camera_android, () {
+                          context.read<CameraBloc>().add(SwitchCamera());
+                        }),
+                        const SizedBox(height: 12),
+                        _circleButton(_flashIcon(state.flashMode), () {
+                          context.read<CameraBloc>().add(ToggleFlash());
+                        }),
+                      ],
+                    ),
+                  ),
                 ]
               )
              }
