@@ -50,6 +50,32 @@ class _FullPageState extends State<FullPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return Scaffold(
+      appBar: AppBar(title: const Text('Beranda')),
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: ElevatedButton.icon(
+                    icon: const Icon(Icons.camera),
+                    label: const Text('Ambil Foto'),
+                    onPressed: _takePicture,
+                  ),
+                ),
+                ElevatedButton.icon(
+                  icon: const Icon(Icons.folder),
+                  label: const Text('Pilih dari Galeri'),
+                  onPressed: _pickFromGallery,
+                ),
+              ],
+            ),
+            const SizedBox(height: 20),
+          ],
+        ),
+      ),
+    );
   }
 }
