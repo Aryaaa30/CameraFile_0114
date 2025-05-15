@@ -36,4 +36,20 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     final next = (s.selectedIndex + 1) % _cameras.length;
     await _setupController(emit, next, previous: s);
   }
+
+  Future<void> _onToggleFlash(
+    ToggleFlash event,
+    Emitter<CameraState> emit,
+  ) async {
+    if (state is! CameraReady) return;
+    final s = state as CameraReady;
+    final next =
+        s.flashMode == FlashMode.auto
+            ? FlashMode.always
+            : s.flashMode == FlashMode.always
+            ? FlashMode.off
+            : FlashMode.auto;
+    await s.controller.setFlashMode(next);
+    emit(s.copyWith(flashMode: next));
+  }
 }
