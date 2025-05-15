@@ -1,9 +1,9 @@
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'bloc/camera_bloc.dart';
-import 'bloc/camera_event.dart';
-import 'bloc/camera_state.dart';
+import 'package:session7_mobile_sensor/bloc/camera_bloc.dart';
+import 'package:session7_mobile_sensor/bloc/camera_event.dart';
+import 'package:session7_mobile_sensor/bloc/camera_state.dart';
 
 class CameraPage extends StatefulWidget {
   const CameraPage({super.key});
@@ -57,17 +57,14 @@ class _CameraPageState extends State<CameraPage> {
           }
 
           return LayoutBuilder(
-             builder: (context, constraints){
+            builder: (context, constraints) {
               return Stack(
                 fit: StackFit.expand,
                 children: [
                   GestureDetector(
                     onTapDown: (details) {
                       context.read<CameraBloc>().add(
-                        TapToFocus(
-                          details.localPosition,
-                          constraints.biggest,
-                        ),
+                        TapToFocus(details.localPosition, constraints.biggest),
                       );
                     },
                     child: CameraPreview(state.controller),
@@ -96,21 +93,22 @@ class _CameraPageState extends State<CameraPage> {
                         backgroundColor: Colors.white,
                         onPressed: () {
                           context.read<CameraBloc>().add(
-                            TakePicture(
-                              (file) => Navigator.pop(context, file),
-                            ),
+                            TakePicture((file) => Navigator.pop(context, file)),
                           );
                         },
-                        child: const Icon(Icons.camera_alt, color: Colors.black),
+                        child: const Icon(
+                          Icons.camera_alt,
+                          color: Colors.black,
+                        ),
                       ),
                     ),
                   ),
-                ]
-              )
-             }
-          )
-        }
-      )
+                ],
+              );
+            },
+          );
+        },
+      ),
     );
   }
 }
