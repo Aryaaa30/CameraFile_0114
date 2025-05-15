@@ -1,8 +1,8 @@
 import 'dart:io';
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
-import 'package:camera/camera_page.dart';
-import 'package:camera/camera_page/camera_page_helper.dart';
+import 'package:session7_mobile_sensor/ui/camera_page_bloc.dart';
+import 'package:session7_mobile_sensor/storage_helper_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
@@ -14,16 +14,16 @@ import 'camera_state.dart';
 class CameraBloc extends Bloc<CameraEvent, CameraState> {
   late final List<CameraDescription> _cameras;
 
-  CameraBloc() : super(const CameraInitial()) {
+  CameraBloc() : super(CameraInitial()) {
     on<InitializeCamera>(_onInit);
     on<SwitchCamera>(_onSwitchCamera);
     on<ToggleFlash>(_onToggleFlash);
     on<TakePicture>(_onTakePicture);
-    on<OnTapFocus>(_onTapFocus);
-    on<PickGallery>(_onPickGallery);
+    on<TapToFocus>(_onTapFocus);
+    on<PickImageFromGallery>(_onPickGallery);
     on<OpenCameraAndCapture>(_onOpenCamera);
     on<DeleteImage>(_onDeleteImage);
-    on<ClearSnackBar>(_onClearSnackBar);
+    on<ClearSnackbar>(_onClearSnackBar);
     on<RequestPermissions>(_onRequestPermissions);
   }
 
@@ -70,7 +70,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
     emit(s.copyWith(imageFile: File(file.path)));
   }
 
-  Future<void> _onTapFocus(OnTapFocus event, Emitter<CameraState> emit) async {
+  Future<void> _onTapFocus(TapToFocus event, Emitter<CameraState> emit) async {
     if (state is! CameraReady) return;
     final s = state as CameraReady;
     final relative = Offset(
@@ -82,7 +82,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
   }
 
   Future<void> _onPickGallery(
-    PickGallery event,
+    PickImageFromGallery event,
     Emitter<CameraState> emit,
   ) async {
     if (state is! CameraReady) return;
@@ -92,7 +92,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       emit(
         (state as CameraReady).copyWith(
           imageFile: File(file.path),
-          snackBarMessage: 'Berhasil memilih dari galeri',
+          snackbarMessage: 'Berhasil memilih dari galeri',
         ),
       );
     }
@@ -120,7 +120,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       emit(
         (state as CameraReady).copyWith(
           imageFile: saved,
-          snackBarMessage: 'Disimpan: ${saved.path}',
+          snackbarMessage: 'Disimpan: ${saved.path}',
         ),
       );
     }
@@ -139,17 +139,17 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
         selectedIndex: s.selectedIndex,
         flashMode: s.flashMode,
         imageFile: null,
-        snackBarMessage: 'Gambar dihapus',
+        snackbarMessage: 'Gambar dihapus',
       ),
     );
   }
 
   Future<void> _onClearSnackBar(
-    ClearSnackBar event,
+    ClearSnackbar event,
     Emitter<CameraState> emit,
   ) async {
     if (state is! CameraReady) return;
-    emit((state as CameraReady).copyWith(snackBarMessage: null));
+    emit((state as CameraReady).copyWith(snackbarMessage: null));
   }
 
   Future<void> _setupController(
@@ -172,7 +172,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
         selectedIndex: index,
         flashMode: previous?.flashMode ?? FlashMode.off,
         imageFile: previous?.imageFile,
-        snackBarMessage: null,
+        snackbarMessage: null,
       ),
     );
   }
@@ -202,7 +202,7 @@ class CameraBloc extends Bloc<CameraEvent, CameraState> {
       if (state is CameraReady) {
         emit(
           (state as CameraReady).copyWith(
-            snackBarMessage: 'Izin kamera atau penyimpanan ditolak',
+            snackbarMessage: 'Izin kamera atau penyimpanan ditolak',
           ),
         );
       }
